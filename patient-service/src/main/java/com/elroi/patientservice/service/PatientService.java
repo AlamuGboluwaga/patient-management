@@ -1,4 +1,4 @@
-package com.elroi.patientservice;
+package com.elroi.patientservice.service;
 
 import com.elroi.patientservice.model.Patient;
 import com.elroi.patientservice.repository.PatientRepository;
@@ -8,15 +8,15 @@ import java.util.List;
 
 @Service
 public class PatientService {
-private PatientRepository patientRepository;
+    private PatientRepository patientRepository;
 
-public PatientService(PatientRepository patientRepository) {
-this.patientRepository =patientRepository;
+    public PatientService(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
     }
 
-public List<Patient> getAllPatient(){
-    return patientRepository.findAll();
+    public List<Patient> getAllPatients() {
+        return patientRepository.findAll();
 
-}
+    }
 
 }
