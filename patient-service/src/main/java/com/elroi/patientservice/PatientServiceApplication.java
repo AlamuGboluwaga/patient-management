@@ -25,8 +25,10 @@ public class PatientServiceApplication {
 //            }
 //            System.setProperty(key, value);
 //        });
-        SpringApplication.run(PatientServiceApplication.class, args);
+
         log.info("Patient Service Application started successfully on Port 8080.");
+        SpringApplication.run(PatientServiceApplication.class, args);
+
     }
 
 }

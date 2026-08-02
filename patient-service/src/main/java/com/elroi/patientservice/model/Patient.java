@@ -1,10 +1,7 @@
 package com.elroi.patientservice.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,9 +18,10 @@ public class Patient {
     private String name;
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     @NotBlank(message = "Phone is required")
+    @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
     @Column(name = "phone")
     private String phone;
     @NotBlank(message = "Address is required")
@@ -32,6 +30,7 @@ public class Patient {
     @NotNull(message = "Date of birth is required")
     @Past(message = "Date of birth must be in the past")
     @Column(name = "date_of_birth")
+    @Past
     private LocalDate dateOfBirth;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
