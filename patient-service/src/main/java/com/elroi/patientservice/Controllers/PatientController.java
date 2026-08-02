@@ -26,10 +26,6 @@ public class PatientController {
     @GetMapping("/patients")
     public ResponseEntity<List<Patient>> getAllPatient() {
 
-        List<Patient> patients = patientService.getAllPatients();
-        if (patients.isEmpty()) {
-            throw new RuntimeException("No patients found");
-        }
-        return ResponseEntity.ok().body(patients);
+        return ResponseEntity.ok().body(patientService.getAllPatients());
     }
 }

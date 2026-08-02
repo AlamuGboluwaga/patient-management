@@ -1,11 +1,15 @@
 package com.elroi.patientservice;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class PatientServiceApplication {
+
+    private static final Logger log = LoggerFactory.getLogger(PatientServiceApplication.class);
 
     public static void main(String[] args) {
 
@@ -22,6 +26,7 @@ public class PatientServiceApplication {
 //            System.setProperty(key, value);
 //        });
         SpringApplication.run(PatientServiceApplication.class, args);
+        log.info("Patient Service Application started successfully on Port 8080.");
     }
 
 }
