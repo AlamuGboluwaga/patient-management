@@ -22,40 +22,40 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @GetMapping("/test")
+    @GetMapping("/api/test")
     @Operation(summary = "Test Endpoint", description = "Returns a test message to verify the service is running.")
     public String test() {
         return "It is settled in Jesus Name";
     }
 
 
-    @GetMapping("/patients/all")
+    @GetMapping("/api/patients/all")
     @Operation(summary = "Get all Patients")
     public ResponseEntity<List<Patient>> getAllPatient() {
 
         return ResponseEntity.ok().body(patientService.getAllPatients());
     }
 
-    @PostMapping("/patients")
+    @PostMapping("/api/patients")
     @Operation(summary = "Register a new Patient")
     public ResponseEntity<PatientResponseDto> registerPatient(@Valid @RequestBody PatientRequestDto requestDto) {
         PatientResponseDto responseDto = patientService.registerPatient(requestDto);
         return ResponseEntity.ok().body(responseDto);
     }
 
-    @GetMapping("/patients/{email}")
+    @GetMapping("/api/patients/{email}")
     @Operation(summary = "Get patient by email", description = "Retrieve a patient by their email address")
     public ResponseEntity<PatientResponseDto> getPatientByEmail(@Valid @PathVariable String email) {
         return ResponseEntity.ok().body(patientService.getPatientByEmail(email));
     }
 
-    @DeleteMapping("/patients/{email}")
+    @DeleteMapping("/api/patients/{email}")
     @Operation(summary = "Delete patient by email", description = "Delete a patient by their email address")
     public String deletePatientByEmail(@Valid @PathVariable String email) {
         return ResponseEntity.ok().body(patientService.deletePatientByEmail(email)).getBody();
     }
 
-    @PutMapping("/patients/{email}")
+    @PutMapping("/api/patients/{email}")
     @Operation(summary = "Update patient by email", description = "Update a patient's information by their email address")
     public ResponseEntity<PatientResponseDto> updatePatient(@Valid @PathVariable String email, @Valid @RequestBody PatientRequestDto requestDto) {
         PatientResponseDto responseDto = patientService.updatePatient(email, requestDto);

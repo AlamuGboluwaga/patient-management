@@ -12,12 +12,12 @@ public class PatientServiceApplication {
     private static final Logger log = LoggerFactory.getLogger(PatientServiceApplication.class);
 
     public static void main(String[] args) {
+        System.out.println("envfile:" + System.getProperty("user.dir") + "/.env");
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+        System.out.println("env:" + dotenv.get("SPRING_DATASOURCE_URL"));
+        System.out.println("env:" + dotenv.get("SPRING_DATASOURCE_USERNAME"));
+        System.out.println("env:" + dotenv.get("SPRING_DATASOURCE_PASSWORD"));
 
-        // Map SPRING_DATASOURCE_* env vars to Spring Boot datasource properties.
-        // This ensures .env can override application.properties without key
-        // conflicts and prevents embedded credentials in the URL from
-        // hijacking the datasource username/password.
         dotenv.entries().forEach(entry -> {
             String key = entry.getKey();
             String value = entry.getValue();
