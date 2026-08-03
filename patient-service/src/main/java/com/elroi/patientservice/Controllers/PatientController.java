@@ -29,7 +29,7 @@ public class PatientController {
     }
 
 
-    @GetMapping("/patients")
+    @GetMapping("/patients/all")
     @Operation(summary = "Get all Patients")
     public ResponseEntity<List<Patient>> getAllPatient() {
 
@@ -55,7 +55,7 @@ public class PatientController {
         return ResponseEntity.ok().body(patientService.deletePatientByEmail(email)).getBody();
     }
 
-    @PutMapping("/patient/{email}")
+    @PutMapping("/patients/{email}")
     @Operation(summary = "Update patient by email", description = "Update a patient's information by their email address")
     public ResponseEntity<PatientResponseDto> updatePatient(@Valid @PathVariable String email, @Valid @RequestBody PatientRequestDto requestDto) {
         PatientResponseDto responseDto = patientService.updatePatient(email, requestDto);
