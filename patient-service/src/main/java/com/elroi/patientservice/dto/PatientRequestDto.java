@@ -15,7 +15,7 @@ public class PatientRequestDto {
     @Column(name = "email", unique = true)
     private String email;
     @NotBlank(message = "Phone is required")
-    @Column(name = "phone")
+    @Column(name = "phone", unique = true)
     @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
     private String phone;
     @NotBlank(message = "Address is required")
@@ -24,7 +24,7 @@ public class PatientRequestDto {
     @NotNull(message = "Date of birth is required")
     @Past(message = "Date of birth must be in the past")
     @Column(name = "date_of_birth")
-    @Past
+    @Past(message = "Date of birth must be in the past")
     private LocalDate dateOfBirth;
 
     public PatientRequestDto() {

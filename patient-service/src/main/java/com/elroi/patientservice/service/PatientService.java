@@ -7,6 +7,8 @@ import com.elroi.patientservice.mapper.PatientMapper;
 import com.elroi.patientservice.model.Patient;
 import com.elroi.patientservice.repository.PatientRepository;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -14,6 +16,7 @@ import java.util.List;
 
 @Service
 public class PatientService {
+    private static final Logger log = LoggerFactory.getLogger(PatientService.class);
     private final PatientRepository patientRepository;
 
 
@@ -38,5 +41,19 @@ public class PatientService {
 
     }
 
+    public PatientResponseDto getPatientByEmail(String email) {
+        Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
+        System.out.println("found: " + patient.getId());
+        PatientMapper patientMapper = new PatientMapper();
+        return patientMapper.toDto(patient);
 
+    }
+
+    public String deletePatientByEmail(String email) {
+
+        Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
+        patientRepository.delete(patient);
+        PatientMapper patientMapper = new PatientMapper();
+        return "Patient with email " + email + " has been deleted successfully";
+    }
 }

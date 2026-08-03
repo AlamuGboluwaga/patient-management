@@ -22,7 +22,7 @@ public class Patient {
     private String email;
     @NotBlank(message = "Phone is required")
     @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
-    @Column(name = "phone")
+    @Column(name = "phone", unique = true)
     private String phone;
     @NotBlank(message = "Address is required")
     @Column(name = "address")
@@ -30,7 +30,7 @@ public class Patient {
     @NotNull(message = "Date of birth is required")
     @Past(message = "Date of birth must be in the past")
     @Column(name = "date_of_birth")
-    @Past
+    @Past(message = "Date of birth must be in the past")
     private LocalDate dateOfBirth;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
