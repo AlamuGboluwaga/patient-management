@@ -54,4 +54,12 @@ public class PatientController {
     public String deletePatientByEmail(@Valid @PathVariable String email) {
         return ResponseEntity.ok().body(patientService.deletePatientByEmail(email)).getBody();
     }
+
+    @PutMapping("/patient/{email}")
+    @Operation(summary = "Update patient by email", description = "Update a patient's information by their email address")
+    public ResponseEntity<PatientResponseDto> updatePatient(@Valid @PathVariable String email, @Valid @RequestBody PatientRequestDto requestDto) {
+        PatientResponseDto responseDto = patientService.updatePatient(email, requestDto);
+        return ResponseEntity.ok().body(responseDto);
+    }
+
 }

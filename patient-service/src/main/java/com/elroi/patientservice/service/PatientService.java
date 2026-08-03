@@ -51,9 +51,21 @@ public class PatientService {
 
     public String deletePatientByEmail(String email) {
 
-        Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
-        patientRepository.delete(patient);
+        Patient emailExist = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
+        patientRepository.delete(emailExist);
         PatientMapper patientMapper = new PatientMapper();
         return "Patient with email " + email + " has been deleted successfully";
+    }
+
+    public PatientResponseDto updatePatient(String email, PatientRequestDto requestDto) {
+        Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
+        PatientMapper patientMapper = new PatientMapper();
+        patient.setName(requestDto.getName());
+        patient.setEmail(requestDto.getEmail());
+        patient.setPhone(requestDto.getPhone());
+        patient.setAddress(requestDto.getAddress());
+        patient.setDateOfBirth(requestDto.getDateOfBirth());
+        var updatedpatient = patientRepository.save(patient);
+        return patientMapper.toDto(updatedpatient);
     }
 }

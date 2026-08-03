@@ -21,8 +21,7 @@ public class GlobalErrorHandling {
     public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
 
-        ex
-                .getBindingResult()
+        ex.getBindingResult()
                 .getFieldErrors()
                 .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
         return ResponseEntity.badRequest().body(errors);
@@ -30,11 +29,9 @@ public class GlobalErrorHandling {
 
     @ExceptionHandler(NotFoundException.class)
     public Map<String, String> notFoundError(NotFoundException ex) {
-
         Map<String, String> error = new HashMap<>();
         log.warn("NotFoundException: {}", ex.getMessage());
         error.put("message", ex.getMessage());
-
         return error;
     }
 
@@ -43,7 +40,6 @@ public class GlobalErrorHandling {
         Map<String, String> error = new HashMap<>();
         log.warn("EmailAlreadyExist: {}", ex.getMessage());
         error.put("message", ex.getMessage());
-
         return ResponseEntity.badRequest().body(error);
     }
 
@@ -51,8 +47,7 @@ public class GlobalErrorHandling {
     public ResponseEntity<Map<String, String>> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         Map<String, String> error = new HashMap<>();
         log.warn("DataIntegrityViolationException: {}", ex.getMessage());
-        error.put("message", ex.getMostSpecificCause().getMessage());
-
+        error.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
