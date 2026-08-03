@@ -13,7 +13,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/patients/**").denyAll()
+                        .requestMatchers("/api/**").denyAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())

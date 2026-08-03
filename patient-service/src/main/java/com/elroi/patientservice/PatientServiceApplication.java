@@ -14,9 +14,11 @@ public class PatientServiceApplication {
     public static void main(String[] args) {
         System.out.println("envfile:" + System.getProperty("user.dir") + "/.env");
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
-        System.out.println("env:" + dotenv.get("SPRING_DATASOURCE_URL"));
-        System.out.println("env:" + dotenv.get("SPRING_DATASOURCE_USERNAME"));
-        System.out.println("env:" + dotenv.get("SPRING_DATASOURCE_PASSWORD"));
+//        System.out.println("env:" + dotenv.get("SPRING_DATASOURCE_URL"));
+//        System.out.println("env:" + dotenv.get("SPRING_DATASOURCE_USERNAME"));
+//        System.out.println("env:" + dotenv.get("SPRING_DATASOURCE_PASSWORD"));
+//        System.out.println("env:" + dotenv.get("SPRING_SECURITY_USER_NAME"));
+//        System.out.println("env:" + dotenv.get("SPRING_SECURITY_USER_PASSWORD"));
 
         dotenv.entries().forEach(entry -> {
             String key = entry.getKey();

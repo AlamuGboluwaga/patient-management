@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 
 # ENV
-.envgit
+.env
 ### STS ###
 .apt_generated
 .classpath
