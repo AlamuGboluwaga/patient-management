@@ -1,6 +1,7 @@
 package com.elroi.patientservice.Controllers;
 
-import com.elroi.patientservice.model.User;
+import com.elroi.patientservice.dto.UserRequestDto;
+import com.elroi.patientservice.dto.UserResponseDto;
 import com.elroi.patientservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -23,13 +24,13 @@ public class UserController {
 
     @GetMapping("/api/users/all")
     @Operation(summary = "Get all Users", description = "Retrieve a list of all users")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
         return ResponseEntity.ok().body(userService.getAllUsers());
     }
 
     @PostMapping("/api/users/create")
     @Operation(summary = "Create a new User", description = "Create a new user with the provided details")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        return ResponseEntity.ok().body(userService.createUser(user));
+    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
+        return ResponseEntity.ok().body(userService.createUser(userRequestDto));
     }
 }

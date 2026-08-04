@@ -13,8 +13,7 @@ public class UserRequestDto {
     private String email;
     @NotBlank(message = "Password is required")
     private String password;
-    private Boolean isActive = true;
-
+    
     public UserRequestDto() {
     }
 
@@ -22,6 +21,8 @@ public class UserRequestDto {
         this.id = id;
         this.email = email;
         this.password = password;
+
+
     }
 
     public UUID getId() {
@@ -48,11 +49,4 @@ public class UserRequestDto {
         this.password = password;
     }
 
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
 }

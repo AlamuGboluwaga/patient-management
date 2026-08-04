@@ -19,15 +19,19 @@ public class User {
     @NotBlank(message = "Password is required")
     @Column(name = "password")
     private String password;
-    private Boolean isActive;
+    @Column(name = "role")
+    private String role = "USER";
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 
     public User() {
     }
 
-    public User(UUID id, String email, String password, Boolean isActive) {
+    public User(UUID id, String email, String password, String role, Boolean isActive) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.role = role;
         this.isActive = isActive;
     }
 
@@ -53,6 +57,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Boolean getActive() {
