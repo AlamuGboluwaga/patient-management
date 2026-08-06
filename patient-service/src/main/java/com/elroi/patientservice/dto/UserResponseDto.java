@@ -5,18 +5,17 @@ import java.util.UUID;
 public class UserResponseDto {
     private UUID id;
     private String email;
-    private Boolean isActive;
     private String role;
-
+    private Boolean isActive;
 
     public UserResponseDto() {
     }
 
-    public UserResponseDto(UUID id, String email, Boolean isActive, String role) {
+    public UserResponseDto(UUID id, String email, String role, Boolean isActive) {
         this.id = id;
         this.email = email;
-        this.isActive = isActive;
         this.role = role;
+        this.isActive = isActive;
     }
 
     public UUID getId() {
@@ -34,6 +33,14 @@ public class UserResponseDto {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public Boolean getIsActive() {
         return isActive;
@@ -43,11 +50,4 @@ public class UserResponseDto {
         this.isActive = isActive;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

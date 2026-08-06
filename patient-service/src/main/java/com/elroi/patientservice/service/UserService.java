@@ -21,22 +21,27 @@ public class UserService {
     public List<UserResponseDto> getAllUsers() {
         List<User> users = userRepository.findAll();
 
-        return users.stream().map(user -> new UserResponseDto(
-                user.getId(),
-                user.getEmail(),
-                user.getActive(),
-                user.getRole()
+        UserMapper mapper = new UserMapper();
+//        mapper.toDto();
 
-        )).toList();
+
+//        return users.stream().map(user -> new UserResponseDto(
+//                user.getId(),
+//                user.getEmail(),
+//                user.getIsActive(),
+//                user.getRole()
+//
+//        )).toList();
+
+        return null;
 
     }
 
     public UserResponseDto createUser(UserRequestDto requestDto) {
-
-        var user = new UserMapper();
-        var newUser = user.toEntity(requestDto);
-        userRepository.save(newUser);
-
+        var mapper = new UserMapper();
+        var toEntity = mapper.toEntity(requestDto);
+        User user = userRepository.save(toEntity);
+        var toDto = mapper.toDto(user);
         return null;
     }
 }
