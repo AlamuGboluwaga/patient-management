@@ -19,21 +19,16 @@ public class UserService {
     }
 
     public List<UserResponseDto> getAllUsers() {
-        List<User> users = userRepository.findAll();
-
-        UserMapper mapper = new UserMapper();
-//        mapper.toDto();
+        List<User> userRes = userRepository.findAll();
 
 
-//        return users.stream().map(user -> new UserResponseDto(
-//                user.getId(),
-//                user.getEmail(),
-//                user.getIsActive(),
-//                user.getRole()
-//
-//        )).toList();
+        return userRes.stream().map(user -> new UserResponseDto(
+                user.getId(),
+                user.getEmail(),
+                user.getRole(),
+                user.getIsActive()
 
-        return null;
+        )).toList();
 
     }
 
