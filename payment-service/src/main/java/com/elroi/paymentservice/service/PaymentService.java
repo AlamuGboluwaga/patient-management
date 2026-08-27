@@ -1,48 +1,62 @@
 package com.elroi.paymentservice.service;
 
+import com.elroi.paymentservice.dto.PaymentRequestDto;
+import com.elroi.paymentservice.dto.PaymentResponseDto;
+import com.elroi.paymentservice.mapper.PaymentMapper;
 import com.elroi.paymentservice.model.Payment;
 import com.elroi.paymentservice.repository.PaymentRepository;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
 
-    public Payment createPayment(Payment payment) {
-        return paymentRepository.save(payment);
+    public PaymentService(PaymentRepository paymentRepository) {
+        this.paymentRepository = paymentRepository;
     }
 
-    public Optional<Payment> getPaymentById(Long id) {
-        return paymentRepository.findById(id);
+    public PaymentResponseDto createPayment(@Valid @RequestBody PaymentRequestDto requestDto) {
+        PaymentMapper paymentMapper = new PaymentMapper();
+        Payment payment = paymentMapper.toEntity(requestDto);
+        Payment savedPayment = paymentRepository.save(payment);
+        return paymentMapper.toDto(savedPayment);
     }
 
-    public List<Payment> getPaymentsByPatientId(Long patientId) {
-        return paymentRepository.findByPatientId(patientId);
+    public List<Payment> getAllPayments() {
+        return paymentRepository.findAll();
     }
 
-    public List<Payment> getPaymentsByStatus(String status) {
-        return paymentRepository.findByStatus(status);
+    public PaymentResponseDto getPaymentByReference(String reference) {
+        Payment payment = paymentRepository.findByReference(reference)
+                .orElseThrow(() -> new IllegalArgumentException("Payment with reference " + reference + " not found"));
+        return new PaymentMapper().toDto(payment);
     }
 
-    public Payment updatePayment(Long id, Payment updatedPayment) {
-        return paymentRepository.findById(id)
-                .map(payment -> {
-                    payment.setAmount(updatedPayment.getAmount());
-                    payment.setStatus(updatedPayment.getStatus());
-                    payment.setPaymentMethod(updatedPayment.getPaymentMethod());
-                    payment.setDescription(updatedPayment.getDescription());
-                    return paymentRepository.save(payment);
-                })
-                .orElseThrow(() -> new RuntimeException("Payment not found"));
+    public String deletePaymentByReference(String reference) {
+        Payment payment = paymentRepository.findByReference(reference)
+                .orElseThrow(() -> new IllegalArgumentException("Payment with reference " + reference + " not found"));
+        paymentRepository.delete(payment);
+        return "Payment with reference " + reference + " has been deleted successfully";
     }
 
-    public void deletePayment(Long id) {
-        paymentRepository.deleteById(id);
-    }
+    public PaymentResponseDto updatePayment(String reference, PaymentRequestDto requestDto) {
+        Payment payment = paymentRepository.findByReference(reference)
+                .orElseThrow(() -> new IllegalArgumentException("Payment with reference " + reference + " not found"));
 
+        payment.setAmount(requestDto.getAmount());
+        payment.setCurrency(requestDto.getCurrency());
+        payment.setReference(requestDto.getReference());
+        payment.setPaymentMethod(requestDto.getPaymentMethod());
+        payment.setStatus(requestDto.getStatus());
+        payment.setUpdatedAt(LocalDateTime.now());
+
+        Payment updatedPayment = paymentRepository.save(payment);
+        return new PaymentMapper().toDto(updatedPayment);
+    }
 }

@@ -1,0 +1,9 @@
+C:\dev-spring-boot\patient-management\payment-service\src\main\java\com\elroi\paymentservice\controller\PaymentController.java
+C:\dev-spring-boot\patient-management\payment-service\src\main\java\com\elroi\paymentservice\dto\PaymentRequestDto.java
+C:\dev-spring-boot\patient-management\payment-service\src\main\java\com\elroi\paymentservice\dto\PaymentResponseDto.java
+C:\dev-spring-boot\patient-management\payment-service\src\main\java\com\elroi\paymentservice\mapper\PaymentMapper.java
+C:\dev-spring-boot\patient-management\payment-service\src\main\java\com\elroi\paymentservice\model\Payment.java
+C:\dev-spring-boot\patient-management\payment-service\src\main\java\com\elroi\paymentservice\PaymentServiceApplication.java
+C:\dev-spring-boot\patient-management\payment-service\src\main\java\com\elroi\paymentservice\repository\PaymentRepository.java
+C:\dev-spring-boot\patient-management\payment-service\src\main\java\com\elroi\paymentservice\securityConfig\SecurityConfig.java
+C:\dev-spring-boot\patient-management\payment-service\src\main\java\com\elroi\paymentservice\service\PaymentService.java

@@ -1,44 +1,24 @@
-package com.elroi.paymentservice.model;
-
-import jakarta.persistence.*;
+package com.elroi.paymentservice.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "payments")
-public class Payment {
+public class PaymentResponseDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private BigDecimal amount;
-
-    @Column(nullable = false, length = 10)
     private String currency;
-
-    @Column(nullable = false, unique = true)
     private String reference;
-
-    @Column(nullable = false, length = 20)
     private String paymentMethod;
-
-    @Column(nullable = false, length = 20)
     private String status;
-
-    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Payment() {
+    public PaymentResponseDto() {
     }
 
-    public Payment(Long id, BigDecimal amount, String currency, String reference,
-                   String paymentMethod, String status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public PaymentResponseDto(Long id, BigDecimal amount, String currency, String reference,
+                             String paymentMethod, String status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.amount = amount;
         this.currency = currency;

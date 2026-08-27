@@ -9,7 +9,9 @@ public class PatientMapper {
 
 
     public Patient toEntity(PatientRequestDto patientRequestDto) {
-
+        if (patientRequestDto == null) {
+            return null;
+        }
         return new Patient(
                 null,
                 patientRequestDto.getName(),
