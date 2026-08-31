@@ -1,6 +1,5 @@
 package com.elroi.patientservice.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
@@ -8,22 +7,22 @@ import java.time.LocalDate;
 public class PatientRequestDto {
 
     @NotBlank(message = "Name is required")
-    @Column(name = "name")
+
     private String name;
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
-    @Column(name = "email", unique = true)
+
     private String email;
     @NotBlank(message = "Phone is required")
-    @Column(name = "phone", unique = true)
+
     @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
     private String phone;
     @NotBlank(message = "Address is required")
-    @Column(name = "address")
+
     private String address;
     @NotNull(message = "Date of birth is required")
     @Past(message = "Date of birth must be in the past")
-    @Column(name = "date_of_birth")
+
     @Past(message = "Date of birth must be in the past")
     private LocalDate dateOfBirth;
 
