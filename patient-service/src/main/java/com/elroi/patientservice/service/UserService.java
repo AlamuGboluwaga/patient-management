@@ -13,9 +13,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public List<UserResponseDto> getAllUsers() {
@@ -33,10 +35,9 @@ public class UserService {
     }
 
     public UserResponseDto createUser(UserRequestDto requestDto) {
-        var mapper = new UserMapper();
-        var toEntity = mapper.toEntity(requestDto);
+        var toEntity = userMapper.toEntity(requestDto);
         User user = userRepository.save(toEntity);
-        var toDto = mapper.toDto(user);
+        var toDto = userMapper.toDto(user);
         return null;
     }
 }

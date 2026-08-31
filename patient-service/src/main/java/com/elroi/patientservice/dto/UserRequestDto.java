@@ -3,34 +3,24 @@ package com.elroi.patientservice.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.UUID;
-
 public class UserRequestDto {
 
-    private UUID id;
+    //    private UUID id;
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;
     @NotBlank(message = "Password is required")
     private String password;
-    
+
     public UserRequestDto() {
     }
 
-    public UserRequestDto(UUID id, String email, String password) {
-        this.id = id;
+    public UserRequestDto(String email, String password) {
+
         this.email = email;
         this.password = password;
 
 
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getEmail() {
