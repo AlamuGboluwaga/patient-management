@@ -4,7 +4,6 @@ import com.elroi.patientservice.dto.PatientRequestDto;
 import com.elroi.patientservice.dto.PatientResponseDto;
 import com.elroi.patientservice.model.Patient;
 
-
 public class PatientMapper {
 
 
