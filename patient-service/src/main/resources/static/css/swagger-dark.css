@@ -1,0 +1,15 @@
+body {
+    background-color: #1a1a1a !important;
+    color: #e0e0e0 !important;
+}
+
+.swagger-ui {
+    filter: invert(88%) hue-rotate(180deg);
+}
+
+/* Re-invert images and code sections so they render correctly */
+.swagger-ui img,
+.swagger-ui .highlight-code,
+.swagger-ui .microlight {
+    filter: invert(100%) hue-rotate(180deg);
+}

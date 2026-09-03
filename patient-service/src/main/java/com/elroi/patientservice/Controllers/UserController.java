@@ -31,6 +31,8 @@ public class UserController {
     @PostMapping("/api/users/")
     @Operation(summary = "Create a new User", description = "Create a new user with the provided details")
     public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
+
+
         return ResponseEntity.ok().body(userService.createUser(userRequestDto));
     }
 }

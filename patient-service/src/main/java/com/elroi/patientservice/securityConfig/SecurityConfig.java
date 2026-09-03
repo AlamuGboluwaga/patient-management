@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .requestMatchers("/api/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
@@ -40,4 +41,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 }
