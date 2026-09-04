@@ -1,15 +1,14 @@
 package com.elroi.patientservice;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@Slf4j
 @SpringBootApplication
 public class PatientServiceApplication {
 
-    private static final Logger log = LoggerFactory.getLogger(PatientServiceApplication.class);
 
     public static void main(String[] args) {
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
@@ -24,9 +23,9 @@ public class PatientServiceApplication {
             System.setProperty(key, value);
         });
 
-        log.info("Patient Service Application started successfully on Port 8080.");
+        log.info("Patient Service Application started on port 8080:");
         SpringApplication.run(PatientServiceApplication.class, args);
-
+        
     }
 
 }
