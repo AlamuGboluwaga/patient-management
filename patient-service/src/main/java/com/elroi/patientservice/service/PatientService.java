@@ -7,18 +7,17 @@ import com.elroi.patientservice.mapper.PatientMapper;
 import com.elroi.patientservice.model.Patient;
 import com.elroi.patientservice.repository.PatientRepository;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
 import java.util.List;
 
+@Slf4j
 @Service
 public class PatientService {
-    private static final Logger log = LoggerFactory.getLogger(PatientService.class);
     private final PatientRepository patientRepository;
-
 
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
@@ -29,7 +28,6 @@ public class PatientService {
         Patient patient = patientMapper.toEntity(requestDto);
         Patient savedPatient = patientRepository.save(patient);
         return patientMapper.toDto(savedPatient);
-
     }
 
     public List<Patient> getAllPatients() {
@@ -38,13 +36,13 @@ public class PatientService {
             throw new NotFoundException("No patients found");
         }
         return patientRepository.findAll();
-
     }
 
     public PatientResponseDto getPatientByEmail(String email) {
         Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
         System.out.println("found: " + patient.getId());
         PatientMapper patientMapper = new PatientMapper();
+        log.warn("");
         return patientMapper.toDto(patient);
 
     }
@@ -54,6 +52,7 @@ public class PatientService {
         Patient emailExist = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
         patientRepository.delete(emailExist);
         PatientMapper patientMapper = new PatientMapper();
+
         return "Patient with email " + email + " has been deleted successfully";
     }
 

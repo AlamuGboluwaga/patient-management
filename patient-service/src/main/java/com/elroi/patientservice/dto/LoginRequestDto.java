@@ -14,8 +14,8 @@ import lombok.Setter;
 public class LoginRequestDto {
 
     @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
+    @Email(message = "Email or password is invalid")
     private String email;
-    @NotBlank(message = "Password is required")
+    @NotBlank(message = "Email or password is invalid")
     private String password;
 }

@@ -1,4 +1,4 @@
-package com.elroi.patientservice.trail;
+package com.elroi.patientservice.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -35,3 +35,4 @@ public class LoginHistory {
         loggedInAt = LocalDateTime.now();
     }
 }
+

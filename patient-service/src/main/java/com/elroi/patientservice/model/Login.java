@@ -23,9 +23,9 @@ public class Login {
     private UUID id;
     @NotBlank(message = "Email is required")
     @Column(name = "email", unique = true)
-    @Email(message = "Email should be valid")
+    @Email(message = "Email or password is invalid")
     private String email;
-    @NotBlank(message = "Password is required")
+    @NotBlank(message = "Email or password is invalid")
     @Column(name = "password")
     private String password;
     @Column(name = "logged_in_at")

@@ -1,9 +1,9 @@
 package com.elroi.patientservice.service;
 
 import com.elroi.patientservice.dto.LoginRequestDto;
+import com.elroi.patientservice.model.LoginHistory;
 import com.elroi.patientservice.repository.LoginHistoryRepository;
 import com.elroi.patientservice.repository.UserRepository;
-import com.elroi.patientservice.trail.LoginHistory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,12 +39,12 @@ public class LoginService {
 
         var encodedPassword = user.get().getPassword();
 
-        boolean match = passwordEncoder.matches(
+        boolean passwordMatch = passwordEncoder.matches(
                 request.getPassword(),
                 encodedPassword
         );
 
-        if (!match) {
+        if (!passwordMatch) {
             log.warn("Password mismatch for email: {}", request.getEmail());
 
             loginHistory.setStatus("FAILED");
