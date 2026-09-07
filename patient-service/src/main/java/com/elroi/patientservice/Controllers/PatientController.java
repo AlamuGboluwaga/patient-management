@@ -1,7 +1,6 @@
 package com.elroi.patientservice.Controllers;
 
 import com.elroi.patientservice.dto.PatientRequestDto;
-import com.elroi.patientservice.dto.PatientResponseDto;
 import com.elroi.patientservice.model.Patient;
 import com.elroi.patientservice.service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,14 +37,14 @@ public class PatientController {
 
     @PostMapping("/api/patients")
     @Operation(summary = "Register a new Patient")
-    public ResponseEntity<PatientResponseDto> registerPatient(@Valid @RequestBody PatientRequestDto requestDto) {
-        PatientResponseDto responseDto = patientService.registerPatient(requestDto);
+    public ResponseEntity<PatientRequestDto> registerPatient(@Valid @RequestBody PatientRequestDto requestDto) {
+        PatientRequestDto responseDto = patientService.registerPatient(requestDto);
         return ResponseEntity.ok().body(responseDto);
     }
 
     @GetMapping("/api/patients/{email}")
     @Operation(summary = "Get patient by email", description = "Retrieve a patient by their email address")
-    public ResponseEntity<PatientResponseDto> getPatientByEmail(@Valid @PathVariable String email) {
+    public ResponseEntity<PatientRequestDto> getPatientByEmail(@Valid @PathVariable String email) {
         return ResponseEntity.ok().body(patientService.getPatientByEmail(email));
     }
 
@@ -57,8 +56,8 @@ public class PatientController {
 
     @PutMapping("/api/patients/{email}")
     @Operation(summary = "Update patient by email", description = "Update a patient's information by their email address")
-    public ResponseEntity<PatientResponseDto> updatePatient(@Valid @PathVariable String email, @Valid @RequestBody PatientRequestDto requestDto) {
-        PatientResponseDto responseDto = patientService.updatePatient(email, requestDto);
+    public ResponseEntity<PatientRequestDto> updatePatient(@Valid @PathVariable String email, @Valid @RequestBody PatientRequestDto requestDto) {
+        PatientRequestDto responseDto = patientService.updatePatient(email, requestDto);
         return ResponseEntity.ok().body(responseDto);
     }
 

@@ -2,15 +2,13 @@ package com.elroi.patientservice.service;
 
 import com.elroi.patientservice.GlobalErrorHandlling.NotFoundException;
 import com.elroi.patientservice.dto.PatientRequestDto;
-import com.elroi.patientservice.dto.PatientResponseDto;
-import com.elroi.patientservice.mapper.PatientMapper;
+import com.elroi.patientservice.mapper.PatienceMapper;
 import com.elroi.patientservice.model.Patient;
 import com.elroi.patientservice.repository.PatientRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-
 
 import java.util.List;
 
@@ -19,15 +17,17 @@ import java.util.List;
 public class PatientService {
     private final PatientRepository patientRepository;
 
-    public PatientService(PatientRepository patientRepository) {
+    private final PatienceMapper patienceMapper;
+
+    public PatientService(PatientRepository patientRepository, PatienceMapper patienceMapper) {
         this.patientRepository = patientRepository;
+        this.patienceMapper = patienceMapper;
     }
 
-    public PatientResponseDto registerPatient(@Valid @RequestBody PatientRequestDto requestDto) {
-        PatientMapper patientMapper = new PatientMapper();
-        Patient patient = patientMapper.toEntity(requestDto);
+    public PatientRequestDto registerPatient(@Valid @RequestBody PatientRequestDto requestDto) {
+        var patient = patienceMapper.toEntity(requestDto);
         Patient savedPatient = patientRepository.save(patient);
-        return patientMapper.toDto(savedPatient);
+        return patienceMapper.toDto(savedPatient);
     }
 
     public List<Patient> getAllPatients() {
@@ -38,33 +38,29 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public PatientResponseDto getPatientByEmail(String email) {
+    public PatientRequestDto getPatientByEmail(String email) {
         Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
-        System.out.println("found: " + patient.getId());
-        PatientMapper patientMapper = new PatientMapper();
-        log.warn("");
-        return patientMapper.toDto(patient);
+
+        return patienceMapper.toDto(patient);
 
     }
 
     public String deletePatientByEmail(String email) {
-
         Patient emailExist = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
         patientRepository.delete(emailExist);
-        PatientMapper patientMapper = new PatientMapper();
 
         return "Patient with email " + email + " has been deleted successfully";
     }
 
-    public PatientResponseDto updatePatient(String email, PatientRequestDto requestDto) {
+    public PatientRequestDto updatePatient(String email, PatientRequestDto requestDto) {
         Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
-        PatientMapper patientMapper = new PatientMapper();
+
         patient.setName(requestDto.getName());
         patient.setEmail(requestDto.getEmail());
         patient.setPhone(requestDto.getPhone());
         patient.setAddress(requestDto.getAddress());
         patient.setDateOfBirth(requestDto.getDateOfBirth());
         var updatedpatient = patientRepository.save(patient);
-        return patientMapper.toDto(updatedpatient);
+        return patienceMapper.toDto(updatedpatient);
     }
 }
