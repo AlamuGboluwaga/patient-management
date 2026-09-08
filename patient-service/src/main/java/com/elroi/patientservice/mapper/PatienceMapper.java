@@ -1,6 +1,7 @@
 package com.elroi.patientservice.mapper;
 
 import com.elroi.patientservice.dto.PatientRequestDto;
+import com.elroi.patientservice.dto.PatientResponseDto;
 import com.elroi.patientservice.model.Patient;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,5 +12,5 @@ public interface PatienceMapper {
         //Ignored on creation since ID is auto-generated
     Patient toEntity(PatientRequestDto patientRequestDto);
 
-    PatientRequestDto toDto(Patient entity);
+    PatientResponseDto toDto(Patient entity);
 }

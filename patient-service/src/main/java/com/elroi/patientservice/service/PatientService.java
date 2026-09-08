@@ -2,6 +2,7 @@ package com.elroi.patientservice.service;
 
 import com.elroi.patientservice.GlobalErrorHandlling.NotFoundException;
 import com.elroi.patientservice.dto.PatientRequestDto;
+import com.elroi.patientservice.dto.PatientResponseDto;
 import com.elroi.patientservice.mapper.PatienceMapper;
 import com.elroi.patientservice.model.Patient;
 import com.elroi.patientservice.repository.PatientRepository;
@@ -24,7 +25,7 @@ public class PatientService {
         this.patienceMapper = patienceMapper;
     }
 
-    public PatientRequestDto registerPatient(@Valid @RequestBody PatientRequestDto requestDto) {
+    public PatientResponseDto registerPatient(@Valid @RequestBody PatientRequestDto requestDto) {
         var patient = patienceMapper.toEntity(requestDto);
         Patient savedPatient = patientRepository.save(patient);
         return patienceMapper.toDto(savedPatient);
@@ -38,7 +39,7 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public PatientRequestDto getPatientByEmail(String email) {
+    public PatientResponseDto getPatientByEmail(String email) {
         Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
 
         return patienceMapper.toDto(patient);
@@ -52,7 +53,7 @@ public class PatientService {
         return "Patient with email " + email + " has been deleted successfully";
     }
 
-    public PatientRequestDto updatePatient(String email, PatientRequestDto requestDto) {
+    public PatientResponseDto updatePatient(String email, PatientRequestDto requestDto) {
         Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
 
         patient.setName(requestDto.getName());
