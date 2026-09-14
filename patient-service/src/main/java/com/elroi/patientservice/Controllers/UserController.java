@@ -5,6 +5,7 @@ import com.elroi.patientservice.dto.UserResponseDto;
 import com.elroi.patientservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,9 +32,7 @@ public class UserController {
     @PostMapping("/api/users/")
     @Operation(summary = "Create a new User", description = "Create a new user with the provided details")
     public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
-
-
-        return ResponseEntity.ok().body(userService.createUser(userRequestDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userRequestDto));
     }
-     
+
 }

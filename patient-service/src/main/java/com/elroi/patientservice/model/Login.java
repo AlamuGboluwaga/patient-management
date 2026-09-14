@@ -4,19 +4,17 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "login")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -37,7 +37,9 @@ public class UserService {
     public UserResponseDto createUser(UserRequestDto requestDto) {
         var toEntity = userMapper.toEntity(requestDto);
         User user = userRepository.save(toEntity);
-        var toDto = userMapper.toDto(user);
-        return null;
+        return userMapper.toDto(user);
+
     }
+
+
 }

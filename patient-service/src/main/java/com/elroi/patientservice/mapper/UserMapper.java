@@ -2,6 +2,7 @@ package com.elroi.patientservice.mapper;
 
 import com.elroi.patientservice.dto.UserRequestDto;
 import com.elroi.patientservice.dto.UserResponseDto;
+import com.elroi.patientservice.enums.UserRole;
 import com.elroi.patientservice.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -21,8 +22,7 @@ public class UserMapper {
                 null,
                 userRequestDto.getEmail(),
                 passwordEncoder.encode(userRequestDto.getPassword()),
-
-                "USER",
+                UserRole.USER,
                 true
         );
     }

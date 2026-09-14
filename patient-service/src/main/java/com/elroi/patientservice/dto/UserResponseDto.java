@@ -1,5 +1,6 @@
 package com.elroi.patientservice.dto;
 
+import com.elroi.patientservice.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.UUID;
 public class UserResponseDto {
     private UUID id;
     private String email;
-    private String role;
+    private UserRole role;
     private Boolean isActive;
 
 }
