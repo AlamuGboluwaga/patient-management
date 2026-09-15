@@ -8,6 +8,7 @@ import com.elroi.patientservice.model.Patient;
 import com.elroi.patientservice.repository.PatientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class PatientService {
 
     private final PatientMapper patientMapper;
 
-    public PatientService(PatientRepository patientRepository, PatientMapper patientMapper) {
+    public PatientService(PatientRepository patientRepository, @Qualifier("patientMapperImpl") PatientMapper patientMapper) {
         this.patientRepository = patientRepository;
         this.patientMapper = patientMapper;
     }
