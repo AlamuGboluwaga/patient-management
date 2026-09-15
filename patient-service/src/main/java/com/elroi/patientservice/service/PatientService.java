@@ -58,7 +58,7 @@ public class PatientService {
         patient.setName(requestDto.getName());
         patient.setEmail(requestDto.getEmail());
         patient.setPhone(requestDto.getPhone());
-        patient.setAddress(requestDto.getAddress());
+        patient.setAddress(patientMapper.toAddress(requestDto.getAddress()));
         patient.setDateOfBirth(requestDto.getDateOfBirth());
         var updatedpatient = patientRepository.save(patient);
         return patientMapper.toDto(updatedpatient);
