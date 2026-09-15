@@ -1,13 +1,15 @@
-﻿package com.elroi.patientservice.dto;
+package com.elroi.patientservice.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import io.swagger.v3.oas.annotations.media.Schema;
-nimport java.time.LocalDate;
-n@Getter
+
+import java.time.LocalDate;
+
+@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +23,8 @@ public class PatientRequestDto {
     @Schema(example = "john.doe@example.com")
     private String email;
     @NotBlank(message = "Phone is required")
-n    @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
+
+    @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
     @Schema(example = "01234567890")
     private String phone;
     @NotNull(message = "Address is required")
@@ -31,4 +34,5 @@ public class PatientRequestDto {
     @Past(message = "Date of birth must be in the past")
     @Schema(example = "1990-05-20")
     private LocalDate dateOfBirth;
-n}
+
+}
