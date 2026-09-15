@@ -13,9 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 
-
 public class PatientRequestDto {
-
     @NotBlank(message = "Name is required")
     private String name;
     @NotBlank(message = "Email is required")
@@ -25,12 +23,10 @@ public class PatientRequestDto {
 
     @Size(min = 11, max = 11, message = "Phone number must be 11 characters")
     private String phone;
-    @NotBlank(message = "Address is required")
-
-    private String address;
+    @NotNull(message = "Address is required")
+    private AddressRequestDto address;
     @NotNull(message = "Date of birth is required")
     @Past(message = "Date of birth must be in the past")
     private LocalDate dateOfBirth;
-
 
 }

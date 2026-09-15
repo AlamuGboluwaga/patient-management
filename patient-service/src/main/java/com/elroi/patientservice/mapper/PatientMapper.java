@@ -1,35 +1,21 @@
-//package com.elroi.patientservice.mapper;
-//
-//import com.elroi.patientservice.dto.PatientRequestDto;
-//import com.elroi.patientservice.dto.PatientResponseDto;
-//import com.elroi.patientservice.model.Patient;
-//
-//public class PatientMapper {
-//
-//    public Patient toEntity(PatientRequestDto patientRequestDto) {
-//        if (patientRequestDto == null) {
-//            return null;
-//        }
-//        return new Patient(
-//                null,
-//                patientRequestDto.getName(),
-//                patientRequestDto.getEmail(),
-//                patientRequestDto.getPhone(),
-//                patientRequestDto.getAddress(),
-//                patientRequestDto.getDateOfBirth(),
-//                null
-//        );
-//    }
-//
-//    public PatientResponseDto toDto(Patient patient) {
-//        return new PatientResponseDto(
-//                patient.getId(),
-//                patient.getName(),
-//                patient.getEmail(),
-//                patient.getPhone(),
-//                patient.getAddress(),
-//                patient.getDateOfBirth(),
-//                patient.getCreatedAt()
-//        );
-//    }
-//}
+package com.elroi.patientservice.mapper;
+
+import com.elroi.patientservice.dto.PatientRequestDto;
+import com.elroi.patientservice.dto.PatientResponseDto;
+import com.elroi.patientservice.dto.AddressRequestDto;
+import com.elroi.patientservice.model.Patient;
+import com.elroi.patientservice.model.Address;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+@Mapper(componentModel = "spring")
+public interface PatientMapper {
+    @Mapping(target = "id", ignore = true)
+    // Ignored on creation since ID is auto-generated
+    Patient toEntity(PatientRequestDto patientRequestDto);
+
+    PatientResponseDto toDto(Patient entity);
+
+    // Map AddressRequestDto to Address entity so MapStruct can convert nested address DTOs
+    Address toAddress(AddressRequestDto addressRequestDto);
+}

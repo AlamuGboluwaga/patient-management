@@ -3,13 +3,11 @@ package com.elroi.patientservice.service;
 import com.elroi.patientservice.GlobalErrorHandlling.NotFoundException;
 import com.elroi.patientservice.dto.PatientRequestDto;
 import com.elroi.patientservice.dto.PatientResponseDto;
-import com.elroi.patientservice.mapper.PatienceMapper;
+import com.elroi.patientservice.mapper.PatientMapper;
 import com.elroi.patientservice.model.Patient;
 import com.elroi.patientservice.repository.PatientRepository;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -18,17 +16,18 @@ import java.util.List;
 public class PatientService {
     private final PatientRepository patientRepository;
 
-    private final PatienceMapper patienceMapper;
+    private final PatientMapper patientMapper;
 
-    public PatientService(PatientRepository patientRepository, PatienceMapper patienceMapper) {
+    public PatientService(PatientRepository patientRepository, PatientMapper patientMapper) {
         this.patientRepository = patientRepository;
-        this.patienceMapper = patienceMapper;
+        this.patientMapper = patientMapper;
     }
 
-    public PatientResponseDto registerPatient(@Valid @RequestBody PatientRequestDto requestDto) {
-        var patient = patienceMapper.toEntity(requestDto);
+    public PatientResponseDto registerPatient(PatientRequestDto requestDto) {
+        var patient = patientMapper.toEntity(requestDto);
         Patient savedPatient = patientRepository.save(patient);
-        return patienceMapper.toDto(savedPatient);
+        return patientMapper.toDto(savedPatient);
+
     }
 
     public List<Patient> getAllPatients() {
@@ -42,7 +41,7 @@ public class PatientService {
     public PatientResponseDto getPatientByEmail(String email) {
         Patient patient = patientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Patient with email " + email + " not found"));
 
-        return patienceMapper.toDto(patient);
+        return patientMapper.toDto(patient);
 
     }
 
@@ -62,6 +61,6 @@ public class PatientService {
         patient.setAddress(requestDto.getAddress());
         patient.setDateOfBirth(requestDto.getDateOfBirth());
         var updatedpatient = patientRepository.save(patient);
-        return patienceMapper.toDto(updatedpatient);
+        return patientMapper.toDto(updatedpatient);
     }
 }

@@ -1,5 +1,6 @@
 package com.elroi.patientservice.dto;
 
+import com.elroi.patientservice.model.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +19,13 @@ public class PatientResponseDto {
     private String name;
     private String email;
     private String phone;
-    private String address;
+    private Address address;
     private LocalDate dateOfBirth;
 
 //    private LocalDateTime createdAt;
 //    public PatientResponseDto() {
 //    }
-//    public PatientResponseDto(UUID id, String name, String email, String phone, String address, LocalDate dateOfBirth, LocalDateTime createdAt) {
+//    public PatientResponseDto(UUID id, String name, String email, String phone, Address address, LocalDate dateOfBirth, LocalDateTime createdAt) {
 //        this.id = id;
 //        this.name = name;
 //        this.email = email;

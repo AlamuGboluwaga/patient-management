@@ -7,6 +7,7 @@ import com.elroi.patientservice.service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,7 @@ public class PatientController {
     @Operation(summary = "Register a new Patient")
     public ResponseEntity<PatientResponseDto> registerPatient(@Valid @RequestBody PatientRequestDto requestDto) {
         PatientResponseDto responseDto = patientService.registerPatient(requestDto);
-        return ResponseEntity.ok().body(responseDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
     @GetMapping("/api/patients/{email}")
