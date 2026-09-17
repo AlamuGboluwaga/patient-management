@@ -6,12 +6,10 @@ import com.elroi.patientservice.model.Products;
 import com.elroi.patientservice.service.ProductsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,15 +25,33 @@ public class ProductsController {
 
 
     @GetMapping("/api/products")
+    @ResponseStatus(HttpStatus.OK)
     public List<Products> getAllProducts() {
         return productsService.getAllProducts();
     }
 
+    @GetMapping("/api/products/{id}")
+    public ProductsResponseDto getProductById(@PathVariable @Positive(message = "Id must be greater than 0) Integer id") Integer id) {
+        return productsService.getProductById(id);
+    }
 
     @PostMapping("api/products")
     public ResponseEntity<ProductsResponseDto> createProduct(@Valid @RequestBody ProductsRequestDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productsService.createProduct(request));
     }
+
+    @PutMapping("api/products/id")
+    public ResponseEntity<ProductsResponseDto> updateProduct(@Valid @PathVariable Integer id, @Valid @RequestBody ProductsRequestDto request) {
+        var product = productsService.updateProduct(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(product);
+    }
+
+    @DeleteMapping("api/products/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@Valid @PathVariable Integer id) {
+        productsService.deleteById(id);
+    }
+
 
 //    @PostMapping(value = "/products", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 //    public ResponseEntity<ProductsResponseDto> createProduct(

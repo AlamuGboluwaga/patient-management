@@ -27,13 +27,21 @@ public class GlobalErrorHandling {
         return ResponseEntity.badRequest().body(errors);
     }
 
+//    @ExceptionHandler(NotFoundException.class)
+//    public Map<String, String> notFoundError(NotFoundException ex) {
+//        Map<String, String> error = new HashMap<>();
+//        log.warn("NotFoundException: {}", ex.getMessage());
+//        error.put("message", ex.getMessage());
+//        return error;
+//    }
+
     @ExceptionHandler(NotFoundException.class)
-    public Map<String, String> notFoundError(NotFoundException ex) {
-        Map<String, String> error = new HashMap<>();
-        log.warn("NotFoundException: {}", ex.getMessage());
-        error.put("message", ex.getMessage());
-        return error;
+    public ResponseEntity<Map<String, String>> handleNotFound(NotFoundException ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND) // Sets HTTP Status Code to 404
+                .body(Map.of("message", ex.getMessage()));
     }
+
 
     @ExceptionHandler(EmailAlreadyExists.class)
     public ResponseEntity<Map<String, String>> emailAlreadyExists(EmailAlreadyExists ex) {
