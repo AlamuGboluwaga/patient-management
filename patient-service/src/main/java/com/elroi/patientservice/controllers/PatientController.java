@@ -1,4 +1,4 @@
-package com.elroi.patientservice.Controllers;
+package com.elroi.patientservice.controllers;
 
 import com.elroi.patientservice.dto.PatientRequestDto;
 import com.elroi.patientservice.dto.PatientResponseDto;
