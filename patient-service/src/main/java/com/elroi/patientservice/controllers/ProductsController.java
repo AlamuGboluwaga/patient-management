@@ -2,7 +2,6 @@ package com.elroi.patientservice.controllers;
 
 import com.elroi.patientservice.dto.ProductsRequestDto;
 import com.elroi.patientservice.dto.ProductsResponseDto;
-import com.elroi.patientservice.model.Products;
 import com.elroi.patientservice.service.ProductsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -26,7 +25,7 @@ public class ProductsController {
 
     @GetMapping("/api/products")
     @ResponseStatus(HttpStatus.OK)
-    public List<Products> getAllProducts() {
+    public List<ProductsResponseDto> getAllProducts() {
         return productsService.getAllProducts();
     }
 
@@ -35,12 +34,12 @@ public class ProductsController {
         return productsService.getProductById(id);
     }
 
-    @PostMapping("api/products")
+    @PostMapping("/api/products")
     public ResponseEntity<ProductsResponseDto> createProduct(@Valid @RequestBody ProductsRequestDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productsService.createProduct(request));
     }
 
-    @PutMapping("api/products/id")
+    @PutMapping("/api/products/id")
     public ResponseEntity<ProductsResponseDto> updateProduct(@Valid @PathVariable Integer id, @Valid @RequestBody ProductsRequestDto request) {
         var product = productsService.updateProduct(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(product);
@@ -52,6 +51,11 @@ public class ProductsController {
         productsService.deleteById(id);
     }
 
+
+    @PostMapping("/api/products/{search}")
+    public List<ProductsResponseDto> searchProducts(@Valid @PathVariable String keyword) {
+        return productsService.searchProduct(keyword);
+    }
 
 //    @PostMapping(value = "/products", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 //    public ResponseEntity<ProductsResponseDto> createProduct(

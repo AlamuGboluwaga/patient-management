@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -24,17 +25,21 @@ public class ProductsService {
 //      this.cloudinaryService = cloudinaryService;
     }
 
-    public List<Products> getAllProducts() {
-        return productsRepository.findAll();
+    public List<ProductsResponseDto> getAllProducts() {
+
+        return productsRepository.findAll()
+                .stream().map(productsMapper::toDto).toList();
     }
 
     public ProductsResponseDto getProductById(Integer id) {
-//        Products product = productsRepository.findById(id).orElseThrow(() -> (new NotFoundException("Product not found")));
-//        return productsMapper.toDto(product);
+        Products product = productsRepository.findById(id)
+                .orElseThrow(() -> (new NotFoundException("Product not found")));
+        return productsMapper.toDto(product);
 
-        return productsRepository.findById(id)
-                .map(productsMapper::toDto) // <--- Use MapStruct mapper method reference
-                .orElseThrow(() -> new NotFoundException("Product not found with id: " + id));
+
+//        return productsRepository.findById(id)
+//                .map(productsMapper::toDto) // <--- Use MapStruct mapper method reference
+//                .orElseThrow(() -> new NotFoundException("Product not found with id: " + id));
 
 
     }
@@ -68,6 +73,14 @@ public class ProductsService {
         Products product = productsRepository.findById(id).orElseThrow(() -> new NotFoundException("Product not found with id: " + id));
         productsRepository.delete(product);
     }
+
+
+    public List<ProductsResponseDto> searchProduct(String keyword) {
+        return productsRepository.searchProducts(keyword).stream()
+                .map(productsMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 
 //    public ProductsResponseDto createProduct(
 //            ProductsRequestDto request,
