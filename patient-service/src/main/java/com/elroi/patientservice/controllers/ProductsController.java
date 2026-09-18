@@ -23,24 +23,24 @@ public class ProductsController {
     }
 
 
-    @GetMapping("/api/products")
+    @GetMapping("api/products")
     @ResponseStatus(HttpStatus.OK)
     public List<ProductsResponseDto> getAllProducts() {
         return productsService.getAllProducts();
     }
 
-    @GetMapping("/api/products/{id}")
+    @GetMapping("api/products/{id}")
     public ProductsResponseDto getProductById(@PathVariable @Positive(message = "Id must be greater than 0) Integer id") Integer id) {
         return productsService.getProductById(id);
     }
 
-    @PostMapping("/api/products")
+    @PostMapping("api/products")
     public ResponseEntity<ProductsResponseDto> createProduct(@Valid @RequestBody ProductsRequestDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productsService.createProduct(request));
     }
 
-    @PutMapping("/api/products/id")
-    public ResponseEntity<ProductsResponseDto> updateProduct(@Valid @PathVariable Integer id, @Valid @RequestBody ProductsRequestDto request) {
+    @PutMapping("api/products/{id}")
+    public ResponseEntity<ProductsResponseDto> updateProduct(@PathVariable Integer id, @Valid @RequestBody ProductsRequestDto request) {
         var product = productsService.updateProduct(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
@@ -52,8 +52,8 @@ public class ProductsController {
     }
 
 
-    @PostMapping("/api/products/{search}")
-    public List<ProductsResponseDto> searchProducts(@Valid @PathVariable String keyword) {
+    @PostMapping("api/products/{keyword}")
+    public List<ProductsResponseDto> searchProduct(@PathVariable String keyword) {
         return productsService.searchProduct(keyword);
     }
 
